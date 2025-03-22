@@ -3,9 +3,17 @@
   "version": "1.0.0",
   "description": "idk bruh no clue",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "me, myself and my team",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "consola": "^3.4.2",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongodb": "^6.15.0",
+    "mongoose": "^8.12.2"
+  }
 }
