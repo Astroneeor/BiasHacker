@@ -1,57 +1,49 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // assuming you're using React Router
 
-const DoctorLogin: React.FC = () => {
+function DoctorLogin() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [token, setToken] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    setError('');
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
 
-    try {
-      const response = await fetch('http://localhost:5000/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
+    // Example hardcoded values (replace with your own)
+    const validEmail = 'doctor@example.com';
+    const validPassword = '123456';
 
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.message);
-
-      localStorage.setItem('token', data.token);
-      setToken(data.token);
-      console.log('Login successful:', data);
-    } catch (err: any) {
-      setError(err.message);
+    // Hardcoded check
+    if (email === validEmail && password === validPassword) {
+      // Hardcoded URL redirect (or navigate to a protected route)
+      navigate('/doctor-dashboard'); // or window.location.href = '/doctor-dashboard';
+    } else {
+      alert('Invalid credentials');
     }
   };
 
   return (
     <div className="login-container">
       <h2>Doctor Login</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form className="login-form" onSubmit={handleSubmit}>
-        <input 
-          type="email" 
-          placeholder="Email" 
-          value={email} 
-          onChange={(e) => setEmail(e.target.value)}
+      <form onSubmit={handleLogin}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
           required
         />
-        <input 
-          type="password" 
-          placeholder="Password" 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)}
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
           required
         />
-        <button type="submit">Login</button>
+        <button type="submit">Log In</button>
       </form>
-      {token && <p>Logged in successfully!</p>}
     </div>
   );
-};
+}
 
 export default DoctorLogin;
