@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Header from '../components/Header';
 
 const DoctorDashboard: React.FC = () => {
   const [doctor, setDoctor] = useState<any>(null);
@@ -38,6 +39,7 @@ const DoctorDashboard: React.FC = () => {
 
   return (
     <div className="dashboard-container">
+    <Header />
       <h2>Doctor Dashboard</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
 
