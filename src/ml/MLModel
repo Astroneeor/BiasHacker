@@ -1,0 +1,4 @@
+from SurveyTranslation import surveyTranslation
+
+
+print(surveyTranslation("1. "))
