@@ -1,0 +1,37 @@
+
+#Imports
+import os
+from dotenv import load_dotenv
+import openai
+
+
+#Loading API key
+load_dotenv()
+api_key = os.getenv("OPEN_AI_KEY")
+openai.api_key = api_key
+
+
+#User Input
+userInput= "Test"
+
+
+def surveyTranslation():
+    GPTPrompt=[{
+        "role": "system", 
+        "content": 
+        """
+       Take in the following survey data and translate it into ______. 
+        """
+        }]
+    
+    GPTPrompt.append({"role": "user", "content": userInput})
+    AnalysisAI= openai.chat.completions.create(model="gpt-4o-mini",messages=GPTPrompt)
+    AnalysisAI= AnalysisAI.choices[0].message.content
+    AnalysisAI= float(AnalysisAI)
+    print(AnalysisAI)
+
+
+
+
+
+
