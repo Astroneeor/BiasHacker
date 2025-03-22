@@ -12,26 +12,24 @@ openai.api_key = api_key
 
 
 #User Input
-userInput= "Test"
+userInput= "1. "
 
 
-def surveyTranslation():
+def surveyTranslation(userInput):
     GPTPrompt=[{
         "role": "system", 
         "content": 
         """
-       Take in the following survey data and translate it into ______. 
+        Take in the following survey data and translate it into a list of numbers. 
         """
         }]
     
     GPTPrompt.append({"role": "user", "content": userInput})
     AnalysisAI= openai.chat.completions.create(model="gpt-4o-mini",messages=GPTPrompt)
     AnalysisAI= AnalysisAI.choices[0].message.content
-    AnalysisAI= float(AnalysisAI)
     print(AnalysisAI)
+    return AnalysisAI
 
 
 
-
-
-
+surveyTranslation(userInput)
