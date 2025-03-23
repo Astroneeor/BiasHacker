@@ -3,6 +3,7 @@ import Patientfile  from './models/patientfile.js';
 import Doctor from './models/doctor.js';
 import express from 'express';
 import consola from 'consola';
+import cors from 'cors';
 
 
 connectToDatabase();
@@ -11,11 +12,10 @@ connectToDatabase();
 
 
 
-app.use(cors());
 
 const app = express();
 app.use(express.json());
-
+app.use(cors());
 app.listen(3000, () => {
     consola.success("Server is running on port 3000");
 })
