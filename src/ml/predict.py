@@ -1,5 +1,6 @@
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 from difflib import SequenceMatcher, get_close_matches
+import json 
 
 # Load model and tokenizer
 model = T5ForConditionalGeneration.from_pretrained("./bias_model")
@@ -110,7 +111,8 @@ def predict_bias(age, gender, ethnicity, symptom_category, allow_fallback=True, 
         print()
 
     # Return best result
-    if ranked and ranked[0][0] == 3:
+    if ranked and ranked[0][0] == 3: 
+        print(ranked[0][1])
         return ranked[0][1]
     elif allow_fallback:
         if ranked:
@@ -120,20 +122,21 @@ def predict_bias(age, gender, ethnicity, symptom_category, allow_fallback=True, 
         f"→ The model could not generate a clean response. Try refining input or retraining."
     )
 
-# ✅ Example usage
-if __name__ == "__main__":
-    age = 30
-    gender = "Male"
-    ethnicity = "Black"
-    symptom = "Musculoskeletal"
 
-    print(f"🔍 Running prediction for: {age} | {gender} | {ethnicity} | {symptom}")
-    result = predict_bias(
-        age=age,
-        gender=gender,
-        ethnicity=ethnicity,
-        symptom_category=symptom,
-        allow_fallback=True,
-        verbose=True
-    )
-    print("\n📋 Predicted Bias:\n", result)
+# # ✅ Example usage
+# if __name__ == "__main__":
+#     age = 30
+#     gender = "Male"
+#     ethnicity = "Black"
+#     symptom = "Musculoskeletal"
+
+#     print(f"🔍 Running prediction for: {age} | {gender} | {ethnicity} | {symptom}")
+#     result = predict_bias(
+#         age=age,
+#         gender=gender,
+#         ethnicity=ethnicity,
+#         symptom_category=symptom,
+#         allow_fallback=True,
+#         verbose=True
+#     )
+#     print("\n📋 Predicted Bias:\n", result)
