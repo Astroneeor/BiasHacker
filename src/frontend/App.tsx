@@ -1,11 +1,13 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Homepage from './pages/Homepage';
-import DoctorLogin from './pages/DoctorLogin';
+import PatientSurvey from './pages/Survey';
+import DoctorDashboard from './pages/DoctorDashboard';
 import './App.css';
 import 'spectre.css/dist/spectre.min.css';
-import PatientSurvey from './pages/PatientSurvey';
-import PatientCode from './pages/PatientSuccess';
 
+function PatientSurvey() {
+  return <h2>Patient Survey Page</h2>; // placeholder
+}
 
 function DoctorDashboard() {
   return <h2>Doctor Dashboard</h2>; // placeholder
@@ -18,8 +20,7 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/patient" element={<PatientSurvey />} />
         <Route path="/patient/success" element={<PatientCode />} />
-        <Route path="/doctor" element={<DoctorLogin />} />
-        <Route path="/dashboard" element={<DoctorDashboard />} />
+        <Route path="/doctor" element={<DoctorDashboard />} />
       </Routes>
     </Router>
   );
