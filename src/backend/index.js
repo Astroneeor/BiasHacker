@@ -1,5 +1,5 @@
 import { connectToDatabase } from './services/database.js';
-import Patient  from './models/patient.js';
+import Patientfile  from './models/patientfile.js';
 import Doctor from './models/doctor.js';
 import express from 'express';
 import consola from 'consola';
@@ -9,31 +9,6 @@ connectToDatabase();
 
 
 
-// const patient = new Patient({
-//   name: "Reyansh",
-//   age: 18,
-//   gender: "Gay",
-//   race: "Brown",
-//   problem: "Erectile Dysfunction",
-// });
-
-// patient.save().then(() => {
-//     console.log("Patient saved successfully");
-// }) 
-
-
-
-
-// const doctor = new Doctor({
-//   name: "Dr. Karthik",
-//   speciality: "Neurologist",
-//   Yoe: 5,
-//   Description: "Dr. Karthik is a Neurologist with 5 years of experience",
-// });
-
-// doctor.save().then(() => {
-//   console.log("Doctor saved successfully");
-// }); 
 
 
 
@@ -58,25 +33,41 @@ app.get("/doctors", async (req, res) => {
 
 
 
-app.get('/doctor/:id', async (req, res) => {
-    const doctorId = req.params.id;
- 
-    const doctor = await Doctor.findById(doctorId);
-    res.json(doctor);
-    if (!doctor) {
-        res.status(404).json({ message: "Doctor not found" });
+app.post("/patientfile", async (req, res) => {
+    //   Example request body:
+   //  {
+//     "key": 9815728965891273,
+//     "age": 24,
+//     "gender": "Male",
+//     "ethnicity": "East Asian",
+//     "symptom_category": "Respiratory Issues",
+//     "biases": [
+//       "Some East Asian patients tend to downplay symptoms due to cultural norms, and providers might not catch the severity if they assume no complaint means no issue"
+//     ]
+    //   }
+    
+    const file = new Patientfile({
+        key: req.body.key,
+        age: req.body.age,
+        gender: req.body.gender,
+        ethinicity: req.body.ethinicity,
+        symptom_category: req.body.symptom_category,
+        biases: req.body.biases,
+    })
+
+    file.save().then(() => {
+        res.json({ message: "Patient file saved successfully" });
+    })
+})
+
+
+
+
+app.get("/patientfile/:id", async (req, res) => { 
+    const file = await Patientfile.findOne({ key: req.params.id });
+    console.log(file);
+    res.json(file);
+    if (!file) {
+        res.status(404).json({ message: "Patient file not found" });
     }
-
-});
-
-app.get('/doctore/:email', async (req, res) => {
-    const doctorEmail = req.params.email;
- 
-    const doctor = await Doctor.findOne({ email: doctorEmail });
-    res.json(doctor);
-    if (!doctor) {
-        res.status(404).json({ message: "Doctor not found" });
-    }
-
-}
-);
+})
