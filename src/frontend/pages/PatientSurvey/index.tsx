@@ -17,9 +17,7 @@ export default function PatientSurvey() {
 
     const onSubmit = (data: Patient) => {
         const code = nanoid(6);
-        data.code = code;
         console.log(data);
-        navigate('/patient/success', { state: { code: code } });
 
         fetch('http://127.0.0.1:5000/predict', { //change this for each computer
             method: 'POST',
@@ -29,17 +27,31 @@ export default function PatientSurvey() {
             body: JSON.stringify(data)  // Convert the Patient object into JSON string
           })
           .then(response => {
-            if (!response.bias) {
+            if (!response.bias_prediction) {
               throw new Error('Failed to save patient');
-            }
-            return response.json();  // Parse the response JSON
-          })
+            } else {
+                const patient = response.bias_prediction;
+                patient.biases = [patient.biases];
+                fetch(`http://localhost:5000//patientfile/${code}`, {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(patient)  // Convert the Patient object into JSON string
+                  })
+                    .then(data => {
+                        console.log('Patient saved successfully:', data);
+                    })
+          
+          }})
           .then(data => {
             console.log('Patient saved successfully:', data);
           })
           .catch(error => {
             console.error('Error:', error);
           });
+
+          navigate('/patient/success', { state: { code: code } });
 
     };
 

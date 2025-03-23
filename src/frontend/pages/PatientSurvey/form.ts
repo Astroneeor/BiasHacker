@@ -5,7 +5,6 @@ export interface Patient {
     gender?: string
     ethnicity?: string
     symptom_category?: string
-    code?: string
 }
 
 export const FormRules = {
