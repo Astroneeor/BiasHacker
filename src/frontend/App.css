@@ -5,6 +5,10 @@
   text-align: center;
 }
 
+.App {
+  justify-content:center;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
