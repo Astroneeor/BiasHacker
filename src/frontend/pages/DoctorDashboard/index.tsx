@@ -23,44 +23,112 @@ const DoctorDashboard: React.FC = () => {
   };
 
   return (
-    <div className="doctor-dashboard">
-      <h2>Doctor Dashboard</h2>
-      <div className="form-group">
+    <div
+      className="doctor-dashboard"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: '100vh',
+        textAlign: 'center',
+        fontFamily: 'Arial, sans-serif',
+      }}
+    >
+      <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem' }}>Doctor Dashboard</h2>
+      
+      <div
+        className="form-group"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '10px',
+          marginBottom: '1rem',
+        }}
+      >
         <input
-          className="form-input col-5"
+          className="form-input"
           type="text"
           value={uniqueKey}
           onChange={handleInputChange}
           placeholder="Enter Patient Unique Key"
-          style={{ marginRight: '10px' }}
+          style={{
+            padding: '10px',
+            borderRadius: '6px',
+            border: '1px solid #7f5af0',
+            fontSize: '1rem',
+            width: '250px',
+          }}
         />
-        <button className="btn btn-primary" onClick={handleSearch}>Search</button>
+      <button
+        className="btn btn-primary"
+        onClick={handleSearch}
+        style={{
+          backgroundColor: '#7f5af0',
+          color: 'white',
+          padding: '10px 20px',
+          border: 'none',
+          borderRadius: '6px',
+          cursor: 'pointer',
+          fontWeight: 'bold',
+          fontSize: '1rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '35.5px', // match input height if needed
+        }}
+      >
+        Search
+      </button>
       </div>
-      {error && <p className="error">{error}</p>}
+
+      {error && (
+        <p style={{ color: 'red', marginTop: '1rem' }}>{error}</p>
+      )}
+
       {patientData && (
-        <div className="patient-data">
-          <h3>Patient Data</h3>
-          <table className="table table-striped table-hover">
+        <div
+          className="patient-data"
+          style={{
+            marginTop: '2rem',
+            border: '1px solid #ccc',
+            borderRadius: '10px',
+            padding: '20px',
+            width: '100%',
+            maxWidth: '600px',
+            backgroundColor: '#f9f9f9',
+          }}
+        >
+          <h3 style={{ marginBottom: '1rem' }}>Patient Data</h3>
+          <table
+            className="table"
+            style={{ width: '100%', borderCollapse: 'collapse' }}
+          >
             <tbody>
               <tr>
-                <th>Age</th>
-                <td>{patientData.age}</td>
+                <th style={cellStyle}>Age</th>
+                <td style={cellStyle}>{patientData.age}</td>
               </tr>
               <tr>
-                <th>Gender</th>
-                <td>{patientData.gender}</td>
+                <th style={cellStyle}>Gender</th>
+                <td style={cellStyle}>{patientData.gender}</td>
               </tr>
               <tr>
-                <th>Ethnicity</th>
-                <td>{patientData.ethinicity}</td>
+                <th style={cellStyle}>Ethnicity</th>
+                <td style={cellStyle}>{patientData.ethinicity}</td>
               </tr>
               <tr>
-                <th>Symptom Category</th>
-                <td>{patientData.symptom_category}</td>
+                <th style={cellStyle}>Symptom Category</th>
+                <td style={cellStyle}>{patientData.symptom_category}</td>
               </tr>
               <tr>
-                <th>Biases</th>
-                <td>{patientData.biases}</td>
+                <th style={cellStyle}>Biases</th>
+                <td style={cellStyle}>
+                  {Array.isArray(patientData.biases)
+                    ? patientData.biases.join(', ')
+                    : patientData.biases}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -68,6 +136,12 @@ const DoctorDashboard: React.FC = () => {
       )}
     </div>
   );
+};
+
+const cellStyle: React.CSSProperties = {
+  border: '1px solid #ddd',
+  padding: '8px',
+  textAlign: 'left',
 };
 
 export default DoctorDashboard;
