@@ -20,6 +20,27 @@ export default function PatientSurvey() {
         data.code = code;
         console.log(data);
         navigate('/patient/success', { state: { code: code } });
+
+        fetch('http://127.0.0.1:5000/predict', { //change this for each computer
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)  // Convert the Patient object into JSON string
+          })
+          .then(response => {
+            if (!response.bias) {
+              throw new Error('Failed to save patient');
+            }
+            return response.json();  // Parse the response JSON
+          })
+          .then(data => {
+            console.log('Patient saved successfully:', data);
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+
     };
 
     const toggleDarkMode = () => setDarkMode(prev => !prev);
