@@ -16,7 +16,7 @@ const Patientfile = new Schema({
     type: String,
     required: true,
   },
-  ethinicity: {
+  ethnicity: {
     type: String,
     required: true,
   },

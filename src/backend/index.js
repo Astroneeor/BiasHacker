@@ -46,7 +46,7 @@ app.post("/patientfile", async (req, res) => {
         key: req.body.key,
         age: req.body.age,
         gender: req.body.gender,
-        ethinicity: req.body.ethnicity,
+        ethnicity: req.body.ethnicity,
         symptom_category: req.body.symptom_category,
         biases: req.body.biases,
     })
