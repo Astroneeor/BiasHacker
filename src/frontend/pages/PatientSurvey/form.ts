@@ -1,5 +1,6 @@
 
-export interface Form {
+export interface Patient {
+    Code?: string
     Name?: string
     Age?: number
     Gender?: string

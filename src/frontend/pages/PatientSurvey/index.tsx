@@ -1,23 +1,21 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { FormRules } from './form';
+import { FormRules, Patient } from './form';
 import { nanoid } from 'nanoid';
 
 import { useNavigate } from 'react-router-dom';
 
 export default function PatientSurvey() {
     const navigate = useNavigate();
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
 
-    const onSubmit = (data) => {
+    const onSubmit = (data: Patient) => {
         const code = nanoid(6);
         data.Code = code;
         //send post request to server
         console.log(data);
         navigate('/patient/success', { state: { code: code } });
     };
-
-    console.log(errors);
 
     return (
         <div className='col-8 is-centered'>
@@ -42,7 +40,7 @@ export default function PatientSurvey() {
                 </select>
                 <textarea className='form-input mb-2' placeholder="Problems Experienced" {...register("Problems", FormRules.Problems)} />
 
-                <input className='form-input mb-2' type="submit" />
+                <input className='form-input mb-2' style={{ backgroundColor: '#96d0ee' }} type="submit" />
             </form>
         </div>
     );

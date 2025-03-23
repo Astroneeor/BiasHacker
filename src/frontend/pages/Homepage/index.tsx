@@ -10,7 +10,7 @@ const Homepage: React.FC = () => {
       <img src={MainLogo} style={{ width: '100px' }} />
       <h1 className="text-dark" >Welcome to HeyDoc!</h1>
       <p className="text dark">Choose your portal:</p>
-      <button className="text-dark m-2" style={{ backgroundColor: '#eb9393' }} onClick={() => navigate('/patient')}>Patient</button>
+      <button className="text-dark m-2" style={{ backgroundColor: '#96d0ee' }} onClick={() => navigate('/patient')}>Patient</button>
       <button className="text-dark m-2" style={{ backgroundColor: '#dbdbdb' }} onClick={() => navigate('/doctor')}>Doctor</button>
     </div>
   );
