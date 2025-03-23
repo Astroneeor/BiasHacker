@@ -11,7 +11,7 @@ connectToDatabase();
 
 
 
-
+app.use(cors());
 
 const app = express();
 app.use(express.json());
