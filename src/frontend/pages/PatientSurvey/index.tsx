@@ -15,9 +15,9 @@ export default function PatientSurvey() {
     const darkBg = '#121212';
     const darkText = '#e0e0e0';
 
-    const onSubmit = (data: any) => {
+    const onSubmit = (data: Patient) => {
         const code = nanoid(6);
-        data.Code = code;
+        data.code = code;
         console.log(data);
         navigate('/patient/success', { state: { code: code } });
     };
@@ -88,16 +88,16 @@ export default function PatientSurvey() {
                 display: 'flex', flexDirection: 'column', gap: '1.2rem', width: '80vw', maxWidth: '1400px'
             }}>
                 <input type="text" placeholder="Name" {...register("Name", FormRules.Name)} style={getInputStyle(darkMode)} />
-                <input type="number" placeholder="Age" {...register("Age", FormRules.Age)} style={getInputStyle(darkMode)} />
+                <input type="number" placeholder="Age" {...register("age", FormRules.age)} style={getInputStyle(darkMode)} />
 
-                <select {...register("Gender", FormRules.Gender)} style={getInputStyle(darkMode)}>
+                <select {...register("gender", FormRules.gender)} style={getInputStyle(darkMode)}>
                     <option value="">Select Gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                     <option value="Other">Other</option>
                 </select>
 
-                <select {...register("Race", FormRules.Race)} style={getInputStyle(darkMode)}>
+                <select {...register("ethnicity", FormRules.ethnicity)} style={getInputStyle(darkMode)}>
                     <option value="">Select Race</option>
                     <option value="Black">Black</option>
                     <option value="Middle Eastern">Middle Eastern</option>
@@ -109,7 +109,7 @@ export default function PatientSurvey() {
                 </select>
 
                 <div style={{ position: 'relative' }}>
-                    <textarea placeholder="Describe your problems or symptoms..." {...register("Problems", FormRules.Problems)}
+                    <textarea placeholder="Describe your problems or symptoms..." {...register("symptom_category", FormRules.symptom_category)}
                         style={{ ...getInputStyle(darkMode), minHeight: '120px', paddingRight: '60px' }}
                     />
                     <button type="button" onClick={startListening} disabled={listening} style={{

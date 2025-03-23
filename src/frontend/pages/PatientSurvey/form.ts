@@ -1,10 +1,11 @@
 
-export interface Form {
+export interface Patient {
     Name?: string
-    Age?: number
-    Gender?: string
-    Race?: string
-    Problems?: string
+    age?: number
+    gender?: string
+    ethnicity?: string
+    symptom_category?: string
+    code?: string
 }
 
 export const FormRules = {
@@ -12,19 +13,19 @@ export const FormRules = {
         required: true,
         maxLength: 100
     },
-    "Age": {
+    "age": {
         required: true,
         max: 120,
         min: 0,
         maxLength: 100
     },
-    "Gender": {
+    "gender": {
         required: true
     },
-    "Race": {
+    "ethnicity": {
         required: true
     },
-    "Problems": {
+    "symptom_category": {
         required: true
     }
 };
