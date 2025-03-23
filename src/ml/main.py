@@ -1,55 +1,41 @@
+from flask import Flask, request, jsonify
 import PreProcessing
 import PostProcessing
 from predict import predict_bias
 import json
 
-def getJson():
-    pass
+app = Flask(__name__)
 
-def sendJson():
-    pass
+@app.route("/predict", methods=["POST"])
+def predict():
+    try:
+        receivedJson = request.get_json()
 
-def main(receivedJson):
+        # Save the input to a file (optional, based on your original code)
+        with open("input.json", "w") as write_file:
+            json.dump(receivedJson, write_file, indent=4)
+            print("Input json written!")
 
-    age = 0
-    gender = ""
-    ethnicity = ""
-    symptomCategory = ""
+        # Preprocess
+        PreProcessing.changeFile()
 
-    with open("input.json", "w") as write_file:
-        json.dump(receivedJson, write_file, indent=4)
-        print("Input json written!")
-    
-    PreProcessing.changeFile()
+        with open("preProcessed.json", "r") as read_file:
+            data = json.load(read_file)
+            age = data.get("age", "")
+            gender = data.get("gender", "")
+            ethnicity = data.get("ethnicity", "")
+            symptomCategory = data.get("symptom_category", "")
 
-    with open("preProcessed.json", "r") as read_file:
-        data = json.load(read_file)
-        age = data.get("age", "")
-        gender = data.get("gender", "")
-        ethnicity = data.get("ethnicity", "")
-        symptomCategory = data.get("symptom_category", "")
+        # Predict
+        bias = predict_bias(age, gender, ethnicity, symptomCategory)
 
-    bias = predict_bias(age, gender, ethnicity, symptomCategory)
+        # Optionally write output
+        PostProcessing.exportJson(bias)
 
-    print(bias)
-    PostProcessing.exportJson(bias)
+        return jsonify({"bias_prediction": bias}), 200
 
-data = {
-    "key": 9815728965891273,
-    "age": 24,
-    "gender": "Other",
-    "ethnicity": "Black",
-    "symptom_category": "I have been having difficulty breathing and fever since last few days. I also have a sore throat and a runny nose.",
-  }
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
-main(data)
-
-
-
-
-
-
-
-
-    
-
+if __name__ == "__main__":
+    app.run(debug=True)
