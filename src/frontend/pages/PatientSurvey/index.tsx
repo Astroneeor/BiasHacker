@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormRules } from './form';
 import { nanoid } from 'nanoid';
@@ -8,6 +8,7 @@ export default function PatientSurvey() {
   const navigate = useNavigate();
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
   const [listening, setListening] = useState(false);
+  const [transcribingText, setTranscribingText] = useState('Click to speak');
   const recognitionRef = useRef<any>(null);
 
   const onSubmit = (data: any) => {
@@ -48,6 +49,10 @@ export default function PatientSurvey() {
     recognitionRef.current = recognition;
   };
 
+  useEffect(() => {
+    setTranscribingText(listening ? 'Listening...' : 'Click to speak');
+  }, [listening]);
+
   return (
     <div className='col-8 is-centered'>
       <h1 className='text-large text-dark' style={{ fontSize: '80px' }}>Patient Survey</h1>
@@ -79,9 +84,11 @@ export default function PatientSurvey() {
             {...register("Problems", FormRules.Problems)}
             style={{ width: '100%', minHeight: '100px' }}
           />
+
           <button
             type="button"
             onClick={startListening}
+            disabled={listening}
             style={{
               position: 'absolute',
               right: '10px',
@@ -89,19 +96,46 @@ export default function PatientSurvey() {
               backgroundColor: listening ? '#ff9f1c' : '#e0e0e0',
               border: 'none',
               borderRadius: '50%',
-              width: '40px',
-              height: '40px',
+              width: '50px',
+              height: '50px',
               fontSize: '20px',
-              cursor: 'pointer',
+              cursor: listening ? 'not-allowed' : 'pointer',
+              boxShadow: listening ? '0 0 10px #ff9f1c' : 'none',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              transition: 'all 0.2s ease',
             }}
-            title="Speak your symptoms"
+            title={transcribingText}
+            aria-label={transcribingText}
           >
-            🎤
+            {listening ? (
+              <span style={{
+                width: '20px',
+                height: '20px',
+                border: '3px solid white',
+                borderTop: '3px solid #ff9f1c',
+                borderRadius: '50%',
+                animation: 'spin 1s linear infinite'
+              }} />
+            ) : (
+              '🎤'
+            )}
           </button>
         </div>
 
         <input className='form-input mb-2' type="submit" />
       </form>
+
+      {/* Spinner animation keyframes */}
+      <style>
+        {`
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+        `}
+      </style>
     </div>
   );
 }
