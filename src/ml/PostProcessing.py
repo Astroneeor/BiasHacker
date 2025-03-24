@@ -30,6 +30,7 @@ def exportJson(bias):
 
     data = ""
 
+    print(bias)
     notes = postProcessing(bias)
 
     with open("input.json", "r") as read_file:

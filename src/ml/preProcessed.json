@@ -1,6 +1,8 @@
 {
-    "age": 24,
-    "gender": "Other",
+    "Name": "hello",
+    "age": "22",
+    "gender": "Male",
     "ethnicity": "Black",
-    "symptom_category": "Respiratory Issues"
+    "symptom_category": "Respiratory Issues",
+    "key": "xdyuTd"
 }

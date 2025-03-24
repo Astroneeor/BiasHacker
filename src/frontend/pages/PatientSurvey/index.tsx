@@ -15,44 +15,25 @@ export default function PatientSurvey() {
     const darkBg = '#121212';
     const darkText = '#e0e0e0';
 
-    const onSubmit = (data: Patient) => {
+    const onSubmit = async (data) => {
         const code = nanoid(6);
-        console.log(data);
+        data.key = code;
 
-        fetch('http://127.0.0.1:5000/predict', { //change this for each computer
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)  // Convert the Patient object into JSON string
-          })
-          .then(response => {
-            if (!response.bias_prediction) {
-              throw new Error('Failed to save patient');
-            } else {
-                const patient = response.bias_prediction;
-                patient.biases = [patient.biases];
-                fetch(`http://localhost:5000//patientfile/${code}`, {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(patient)  // Convert the Patient object into JSON string
-                  })
-                    .then(data => {
-                        console.log('Patient saved successfully:', data);
-                    })
-          
-          }})
-          .then(data => {
-            console.log('Patient saved successfully:', data);
-          })
-          .catch(error => {
-            console.error('Error:', error);
-          });
-
-          navigate('/patient/success', { state: { code: code } });
-
+        // Send POST request to the Flask server
+        try {
+            const response = await fetch('http://localhost:5000/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data), // Send the form data as JSON
+            });
+            
+            // Navigate to success page with the generated code
+            navigate('/patient/success', { state: { code: code } });
+        } catch (error) {
+            console.error("Error during form submission:", error);
+        }
     };
 
     const toggleDarkMode = () => setDarkMode(prev => !prev);
@@ -120,7 +101,7 @@ export default function PatientSurvey() {
             <form onSubmit={handleSubmit(onSubmit)} style={{
                 display: 'flex', flexDirection: 'column', gap: '1.2rem', width: '80vw', maxWidth: '1400px'
             }}>
-                <input type="text" placeholder="Name" {...register("Name", FormRules.Name)} style={getInputStyle(darkMode)} />
+                <input type="text" placeholder="Name" {...register("Name", FormRules.name)} style={getInputStyle(darkMode)} />
                 <input type="number" placeholder="Age" {...register("age", FormRules.age)} style={getInputStyle(darkMode)} />
 
                 <select {...register("gender", FormRules.gender)} style={getInputStyle(darkMode)}>

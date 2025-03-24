@@ -1,7 +1,9 @@
 {
-    "age": 24,
-    "gender": "Other",
+    "Name": "hello",
+    "age": "22",
+    "gender": "Male",
     "ethnicity": "Black",
-    "symptom_category": "I have been having difficulty breathing and have fever since last few days. I also have a sore throat and a runny nose.",
-    "biases": "Do not assume that transgender and non-binary patients are seeking care for issues related to their gender identity alone. This bias can lead to inadequate treatment and dismiss their legitimate health concerns, which may not be related to their gender identity at all. Always listen to their symptoms and take their health complaints seriously without prejudice. \n\nAvoid the pitfall of attributing Black patients' health concerns solely to stress or socio-economic factors, which can lead to misdiagnosis and under-treatment. It's critical to evaluate their symptoms with the same rigor and empathy as you would for any other patient, ensuring that underlying medical issues are identified and treated appropriately. \n\nDo not stereotype patients based on race or gender identity by making assumptions about their lifestyle, behavior, or likelihood of certain conditions. Each patient deserves an individualized assessment, as these stereotypes can lead to significant gaps in care and a lack of trust in the healthcare system, ultimately affecting health outcomes."
+    "symptom_category": "I have difficulty breathing.",
+    "key": "xdyuTd",
+    "biases": "Avoid attributing symptoms presented by Black patients solely to stress, as this can lead to underdiagnosis and inadequate treatment plans. It's crucial to thoroughly investigate their symptoms rather than dismissing them based on preconceived notions about race and stress. Similarly, do not overlook men's chronic pain due to biases that suggest they should be more resilient or handle pain better; this can result in misdiagnosis or the provision of inadequate care. Additionally, be cautious of assuming that older patients have diminished capacities for understanding their health issues; this could lead to underestimating their symptoms and failing to provide the appropriate care they deserve. Always strive for a comprehensive approach to patient assessment, regardless of demographic factors."
 }

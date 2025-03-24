@@ -157,7 +157,7 @@ const DoctorDashboard: React.FC = () => {
               </tr>
               <tr>
                 <th style={getCellStyle(darkMode)}>Ethnicity</th>
-                <td style={getCellStyle(darkMode)}>{patientData.ethinicity}</td>
+                <td style={getCellStyle(darkMode)}>{patientData.ethnicity}</td>
               </tr>
               <tr>
                 <th style={getCellStyle(darkMode)}>Symptom Category</th>

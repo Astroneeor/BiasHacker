@@ -1,6 +1,8 @@
 {
-    "age": 24,
-    "gender": "Other",
+    "Name": "hello",
+    "age": "22",
+    "gender": "Male",
     "ethnicity": "Black",
-    "symptom_category": "I have been having difficulty breathing and have fever since last few days. I also have a sore throat and a runny nose."
+    "symptom_category": "I have difficulty breathing.",
+    "key": "xdyuTd"
 }

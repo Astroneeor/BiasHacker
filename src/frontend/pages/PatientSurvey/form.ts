@@ -1,6 +1,6 @@
 
-export interface Patient {
-    Name?: string
+export interface Form {
+    name?: string
     age?: number
     gender?: string
     ethnicity?: string
@@ -8,7 +8,7 @@ export interface Patient {
 }
 
 export const FormRules = {
-    "Name": {
+    "name": {
         required: true,
         maxLength: 100
     },
